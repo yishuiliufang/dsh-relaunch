@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "重启 Harness",
+    "description": "从侧边栏直接重启 DeepSeek Harness，不弹控制台窗口、不弹确认框。"
+  }
+}

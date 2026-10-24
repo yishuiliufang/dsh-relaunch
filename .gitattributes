@@ -1,0 +1,13 @@
+# Keep every text file LF in the repository, whatever the checkout's
+# core.autocrlf says. The READMEs quote the plugin's own log lines, and
+# test/manifest.mjs compares against LF — a CRLF checkout must not look like drift.
+* text=auto eol=lf
+
+# PowerShell and VBScript are parsed by Windows hosts; keep them LF too so the
+# repository bytes stay identical across checkouts.
+*.ps1 text eol=lf
+*.vbs text eol=lf
+
+# PNG and other binaries must never be line-ending converted.
+*.png binary
+*.ico binary

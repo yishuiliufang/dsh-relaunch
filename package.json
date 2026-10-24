@@ -1,0 +1,65 @@
+{
+  "name": "@yishuiliufang/dsh-relaunch",
+  "version": "1.0.0",
+  "description": "Restart DeepSeek Harness from its sidebar. Relaunches the desktop application without a console window or a confirmation dialog, and survives application updates.",
+  "type": "module",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "cordis.patch.yml",
+    "restart-harness.mjs",
+    "launch-hidden.vbs",
+    "restart-harness.ps1",
+    "locale/*.json",
+    "icon.svg",
+    "dsh-plugin.json",
+    "README.md",
+    "README.zh.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true
+    }
+  },
+  "license": "MIT",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "restart",
+    "relaunch",
+    "desktop",
+    "windows"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yishuiliufang/dsh-relaunch.git"
+  },
+  "homepage": "https://github.com/yishuiliufang/dsh-relaunch#readme",
+  "bugs": {
+    "url": "https://github.com/yishuiliufang/dsh-relaunch/issues"
+  },
+  "engines": {
+    "dsh": ">=0.1.7-rc.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "node test/manifest.mjs && node test/host.mjs && node test/client.mjs"
+  }
+}

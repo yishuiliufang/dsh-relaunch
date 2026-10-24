@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Relaunch Harness",
+    "description": "Restart DeepSeek Harness from the sidebar, without a console window or a confirmation dialog."
+  }
+}
