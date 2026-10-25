@@ -4,6 +4,20 @@ All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] — 2026-10-25
+
+### Fixed
+
+- **A non-Windows host now refuses the restart explicitly.** The Host half had no
+  platform check, so on macOS and Linux the request failed incidentally: the WMI
+  attempt threw because `wscript.exe` does not exist, the fallback spawn failed
+  too, and the caller got a generic `restart-failed` that never mentioned the
+  platform. The README promised a clean refusal, so the guard now states it:
+  `restarting Harness is supported on Windows only (this is <platform>)`.
+
+  Nothing changes on Windows. `test/host.mjs` gained a check for the refusal
+  (12 checks, up from 11); the suite is now 45 checks in total.
+
 ## [1.0.0] — 2026-10-24
 
 First release. Adds a restart entry to the DSH sidebar, implemented so that an

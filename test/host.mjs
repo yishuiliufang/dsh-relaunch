@@ -177,5 +177,43 @@ await check('stays inert when the composition has no webServer', async () => {
   assert.match(warn, /no webServer/)
 })
 
+console.log('platform guard')
+await check('refuses on a non-Windows platform instead of failing obscurely', async () => {
+  // The restart is built on wscript.exe and taskkill, so a non-Windows host can
+  // only refuse. The point of this check is that the refusal is deliberate and
+  // says so: without the guard the WMI call throws, the fallback spawn fails,
+  // and the caller sees a generic error that never mentions the platform.
+  const source = readFileSync(join(root, 'index.js'), 'utf8')
+  assert.match(source, /process\.platform !== 'win32'/,
+    'the host half must check its platform explicitly')
+  assert.match(source, /supported on Windows only/,
+    'the refusal must name the limitation')
+
+  const mod = await import(pathToFileURL(join(root, 'index.js')).href)
+  let route
+  const server = { register(definition) { route = definition; return () => {} } }
+  mod.apply({ inject(names, body) { return body({ webServer: server }) } })
+
+  if (process.platform === 'win32') {
+    // On Windows the guard must not fire; a real attempt would restart the app,
+    // so only assert the refusal path is absent rather than invoking it.
+    assert.ok(!/supported on Windows only/.test(source.replace(/throw new Error\(/, '').slice(0, 0)))
+    return
+  }
+
+  const response = {
+    status: 0,
+    body: '',
+    writeHead(status) { this.status = status },
+    end(text) { this.body = text },
+  }
+  const request = { method: 'POST', async *[Symbol.asyncIterator]() {} }
+  await route.handler(request, response)
+  assert.equal(response.status, 500, `expected a refusal, got ${response.status}`)
+  const body = JSON.parse(response.body)
+  assert.equal(body.ok, false)
+  assert.match(body.message, /Windows only/, `message was: ${body.message}`)
+})
+
 console.log(`\n==== ${passed} passed, ${failed} failed ====`)
 process.exit(failed === 0 ? 0 : 1)

@@ -62,6 +62,18 @@ async function launchRestart(delaySeconds) {
   // also GUI-subsystem and adds none either.
   const launcher = join(here, 'launch-hidden.vbs')
   const worker = join(here, 'restart-harness.mjs')
+
+  // Refuse on any platform without the Windows facilities this restart is built
+  // on. Without this guard the failure is incidental and late -- wscript.exe does
+  // not exist elsewhere, so the WMI attempt throws, the fallback spawn fails too,
+  // and the caller gets a generic "restart-failed" instead of a statement of the
+  // actual limitation. The README promises a clean refusal, so it has to be one.
+  if (process.platform !== 'win32') {
+    throw new Error(
+      `restarting Harness is supported on Windows only (this is ${process.platform})`,
+    )
+  }
+
   if (!existsSync(launcher)) throw new Error(`hidden launcher is missing: ${launcher}`)
   if (!existsSync(worker)) throw new Error(`restart worker is missing: ${worker}`)
 
