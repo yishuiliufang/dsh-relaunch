@@ -39,6 +39,14 @@ in the panel behind it closes Harness and starts it again.
 | 🔒 Explicit | The restart never fires on its own — it needs the button |
 | 🌐 Localized | English and Chinese, following the app's language setting |
 
+## What it looks like
+
+The rail entry sits with the shipped panels, below WSL:
+
+![The relaunch entry in the DSH sidebar](assets/sidebar.png)
+
+Selecting it opens the panel, whose single button performs the restart.
+
 ## Install
 
 ```bash

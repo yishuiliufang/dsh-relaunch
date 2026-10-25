@@ -1,6 +1,6 @@
 {
   "name": "@yishuiliufang/dsh-relaunch",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Restart DeepSeek Harness from its sidebar. Relaunches the desktop application without a console window or a confirmation dialog, and survives application updates.",
   "type": "module",
   "exports": {
@@ -20,6 +20,7 @@
     "restart-harness.ps1",
     "locale/*.json",
     "icon.svg",
+    "assets/*.png",
     "dsh-plugin.json",
     "README.md",
     "README.zh.md",

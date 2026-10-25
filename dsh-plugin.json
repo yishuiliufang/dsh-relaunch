@@ -3,7 +3,7 @@
   "manifestVersion": "0.15",
   "id": "dsh-relaunch",
   "name": "dsh-relaunch",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "MIT",
   "facets": {
     "host": {
