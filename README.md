@@ -41,11 +41,15 @@ in the panel behind it closes Harness and starts it again.
 
 ## What it looks like
 
-The rail entry sits with the shipped panels, below WSL:
+The rail entry sits with the shipped panels:
 
 ![The relaunch entry in the DSH sidebar](assets/sidebar.png)
 
-Selecting it opens the panel, whose single button performs the restart.
+Selecting it opens the panel, whose single button performs the restart:
+
+![The relaunch panel: a title, one line of explanation, and one button](assets/panel.png)
+
+Both images are captures of the running application, not mock-ups.
 
 ## Install
 
